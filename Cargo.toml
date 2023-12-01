@@ -27,3 +27,7 @@ fixedbitset = "0.4.2"
 [[bin]]
 name = "01a"
 path = "src/01a.rs"
+
+[[bin]]
+name = "01b"
+path = "src/01b.rs"
