@@ -2,12 +2,9 @@
 // (c) 2002 Mateusz Kwapich
 
 use anyhow::Result;
-use itertools::EitherOrBoth::*;
-use itertools::Itertools;
-use serde::{Deserialize, Serialize};
-use std::cmp::Ordering;
+
 use std::collections::BTreeMap;
-use std::collections::HashMap;
+
 use std::io::BufRead;
 
 fn main() -> Result<()> {
@@ -17,9 +14,7 @@ fn main() -> Result<()> {
     for line in stdin.lock().lines() {
         let mut max = BTreeMap::new();
         let line = line?.clone();
-        let (header, rest) = line.split_once(':').unwrap();
-        let (_game, id) = header.trim().split_once("Game ").unwrap();
-        let id: i32 = id.parse().unwrap();
+        let (_header, rest) = line.split_once(':').unwrap();
         let sets = rest.split(';');
         for set in sets {
             for color in set.trim().split(',') {

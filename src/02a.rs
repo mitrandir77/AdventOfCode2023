@@ -2,12 +2,7 @@
 // (c) 2002 Mateusz Kwapich
 
 use anyhow::Result;
-use itertools::EitherOrBoth::*;
-use itertools::Itertools;
-use serde::{Deserialize, Serialize};
-use std::cmp::Ordering;
 use std::collections::BTreeMap;
-use std::collections::HashMap;
 use std::io::BufRead;
 
 fn main() -> Result<()> {
