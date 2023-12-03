@@ -1,5 +1,5 @@
 [package]
-name = "AdventOfCode2022"
+name = "AdventOfCode2023"
 version = "0.1.0"
 authors = ["Mateusz Kwapich <mateusz@kwapich.it>"]
 edition = "2021"
@@ -44,3 +44,7 @@ path = "src/02b.rs"
 [[bin]]
 name = "03a"
 path = "src/03a.rs"
+
+[[bin]]
+name = "03b"
+path = "src/03b.rs"
