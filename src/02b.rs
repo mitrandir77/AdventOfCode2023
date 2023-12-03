@@ -1,5 +1,5 @@
-// Advent of Code 2022
-// (c) 2002 Mateusz Kwapich
+// Advent of Code 2023
+// (c) 2023 Mateusz Kwapich
 
 use anyhow::Result;
 
