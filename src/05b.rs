@@ -92,7 +92,7 @@ fn main() -> Result<()> {
                             }
                         }
                     }
-                    
+
                     if let Some((key, MapValue { dest: _, length: _ })) = map
                         .values
                         .lower_bound(Bound::Excluded(&seed_start))
@@ -104,7 +104,6 @@ fn main() -> Result<()> {
                             seed_start = *key;
                             continue;
                         }
-
                     }
                     res.push((seed_start, seed_length));
                     return res;
@@ -113,7 +112,7 @@ fn main() -> Result<()> {
             .collect();
         // dbg!(&seeds);
     }
-    let mut seeds:Vec<_> = seeds.into_iter().map(|(k,_v)| k).collect();
+    let mut seeds: Vec<_> = seeds.into_iter().map(|(k, _v)| k).collect();
     seeds.sort();
     println!("{}", seeds.first().unwrap());
 
