@@ -18,6 +18,7 @@ serde = { version = "1.0.150", features = ["derive"] }
 smallset = "0.1.1"
 rayon = "1.5"
 radix_fmt = "1.0.0"
+num = "0.4.1"
 gray-codes = "0.1.1"
 multimap = "0.8.3"
 strum = { version = "0.24", features = ["derive"] }
@@ -80,3 +81,11 @@ path = "src/07a.rs"
 [[bin]]
 name = "07b"
 path = "src/07b.rs"
+
+[[bin]]
+name = "08a"
+path = "src/08a.rs"
+
+[[bin]]
+name = "08b"
+path = "src/08b.rs"
