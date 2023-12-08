@@ -1,7 +1,5 @@
 // Advent of Code 2023
 // (c) 2023 Mateusz Kwapich
-#![feature(btree_cursors)]
-
 use anyhow::Result;
 #[macro_use]
 extern crate scan_rules;
