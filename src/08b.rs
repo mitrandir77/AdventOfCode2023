@@ -14,7 +14,7 @@ fn steps(start: &str, graph: &HashMap<String, (String, String)>, instructions: &
     let mut pos = start;
     let mut steps: u64 = 0;
     for instruction in instructions.chars().cycle() {
-        if pos.ends_with("Z"){
+        if pos.ends_with('Z'){
             break;
         }
         let edges = graph.get(pos).unwrap();
