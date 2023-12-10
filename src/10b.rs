@@ -129,13 +129,14 @@ fn main() -> Result<()> {
     let (mut x, mut y) = (0, 0);
 
     let (isx, isy) = (sx as i64, sy as i64);
+
     let cand: Vec<(usize, usize)> = [
         (isx + 1, isy),
         (isx - 1, isy),
         (isx, isy + 1),
         (isx, isy - 1),
         (isx - 1, isy + 1),
-        (isx - 1, isy + 1),
+        (isx - 1, isy - 1),
         (isx + 1, isy + 1),
         (isx + 1, isy - 1),
     ]
@@ -148,6 +149,7 @@ fn main() -> Result<()> {
             (x, y) = (cx, cy);
         }
     }
+    let (fx, fy) = (x, y);
 
     let mut visited = BTreeSet::new();
     visited.insert((sx, sy));
@@ -157,11 +159,31 @@ fn main() -> Result<()> {
         (px, py) = (x, y);
         (x, y) = (nx, ny);
     }
+    let (px, py, fx, fy) = (py as i64, py as i64, fx as i64, fy as i64);
+    let p = if py.abs_diff(fy) == 1 && px == fx {
+        NS
+    } else if px.abs_diff(fx) == 1 && py == fy {
+        EW
+    } else if px + 1 == fy && py + 1 == fy {
+        SE
+    } else if px - 1 == fy && py - 1 == fy {
+        NW
+    } else if px + 1 == fy && py - 1 == fy {
+        NE
+    } else if px - 1 == fy && py + 1 == fy {
+        SW
+    } else {
+        panic!("xxD");
+    };
+    map[sy][sx] = Pipe(p);
+    
     let mut cnt = 0;
 
     for (y, row) in map.iter().enumerate() {
         let mut prev = 0;
         let mut prev_visited = None;
+        print!("{y}\t");
+        let mut s = String::new();
         for (x, tile) in row.iter().enumerate() {
             if visited.contains(&(x, y)) {
                 let c = match *tile {
@@ -180,9 +202,7 @@ fn main() -> Result<()> {
                     prev_visited = None;
                 } else if *tile != Pipe(EW) {
                     if let Some(pv) = prev_visited {
-                        if (*tile == Pipe(SE) && pv == Pipe(NW))
-                            || (*tile == Pipe(NE) && pv == Pipe(SW))
-                            || (*tile == Pipe(SW) && pv == Pipe(NE))
+                        if (*tile == Pipe(SW) && pv == Pipe(NE))
                             || (*tile == Pipe(NW) && pv == Pipe(SE))
                         {
                             prev += 1;
@@ -192,7 +212,17 @@ fn main() -> Result<()> {
                         prev_visited = Some(*tile);
                     }
                 }
+                if prev % 2 == 1 {
+                    s.push('I');
+                } else {
+                    s.push('O');
+                }
                 continue;
+            }
+            if prev % 2 == 1 {
+                s.push('I');
+            } else {
+                s.push('O');
             }
             prev_visited = None;
 
@@ -204,6 +234,10 @@ fn main() -> Result<()> {
             }
         }
         println!();
+
+        if y == 62 {
+            println!("\t{}", s);
+        }
     }
 
     println!("{cnt}");
