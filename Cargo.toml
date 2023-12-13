@@ -22,6 +22,7 @@ num = "0.4.1"
 gray-codes = "0.1.1"
 multimap = "0.8.3"
 strum = { version = "0.24", features = ["derive"] }
+memoize = "0.4.1"
 
 fixedbitset = "0.4.2"
 
@@ -114,3 +115,11 @@ path = "src/11a.rs"
 [[bin]]
 name = "11b"
 path = "src/11b.rs"
+
+[[bin]]
+name = "12a"
+path = "src/12a.rs"
+
+[[bin]]
+name = "12b"
+path = "src/12b.rs"
