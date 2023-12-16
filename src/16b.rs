@@ -58,14 +58,18 @@ fn maybe_enqueue(
     }
 }
 
-
-fn walk(start: Point, start_d: Dir, map: &Vec<Vec<char>>, global_visited: &mut BTreeSet<(Point, Dir)>) -> usize {
+fn walk(
+    start: Point,
+    start_d: Dir,
+    map: &Vec<Vec<char>>,
+    global_visited: &mut BTreeSet<(Point, Dir)>,
+) -> usize {
     let mut q = VecDeque::from([(start, start_d)]);
     let mut visited = BTreeSet::new();
     visited.insert((start, start_d));
 
     while let Some((p, d)) = q.pop_front() {
-        global_visited.insert((p,d));
+        global_visited.insert((p, d));
         match map.get(p.1).map(|l| l.get(p.0)) {
             Some(Some('.')) => {
                 maybe_enqueue(p.mov(d), d, &mut q, &mut visited);
@@ -120,7 +124,7 @@ fn walk(start: Point, start_d: Dir, map: &Vec<Vec<char>>, global_visited: &mut B
     for (y, l) in map.iter().enumerate() {
         for (x, _c) in l.iter().enumerate() {
             if visited_set.contains(&Point(x, y)) {
-                sum+=1;
+                sum += 1;
             }
         }
     }
@@ -136,7 +140,29 @@ fn main() -> Result<()> {
     }
 
     let mut global_visited = BTreeSet::new();
-    let sum = walk(Point(0,0), Dir::Right, &map, &mut global_visited);
-    println!("{}", sum);
+
+    let ysize = map.len();
+    let xsize = map[0].len();
+    let mut max = 0;
+    for y in 0..ysize {
+        max = max.max(walk(Point(0, y), Dir::Right, &map, &mut global_visited));
+        max = max.max(walk(
+            Point(xsize - 1, y),
+            Dir::Left,
+            &map,
+            &mut global_visited,
+        ));
+    }
+    for x in 0..xsize {
+        max = max.max(walk(Point(x, 0), Dir::Down, &map, &mut global_visited));
+        max = max.max(walk(
+            Point(x, ysize-1),
+            Dir::Up,
+            &map,
+            &mut global_visited,
+        ));
+    }
+
+    println!("{}", max);
     Ok(())
 }
